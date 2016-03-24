@@ -24,15 +24,15 @@ Capacities will be filled working down radius column until it finds a cell in ra
 crane.db
 --------
 Sqlite database containing pertinent data.  
-Each table is a different model of crane. For example, Demag Ac615 is named DemagAc615.
+Each table is a different model of crane. For example, Demag Ac615 is named DemagAc615.  
 Each table contains 9 columns:  
-	1.BoomType: data stored in all caps
-	2.Counterweight: in lbs
-	3.Outrigger: data stored with first letter capitalized
-	4.BoomLen: in ft
-	5.BoomAngle: in degrees
-	6.JibLen: in ft
-	7.JibAngle: in degrees
-	8.Radius: in ft
+	1.BoomType: data stored in all caps  
+	2.Counterweight: in lbs  
+	3.Outrigger: data stored with first letter capitalized  
+	4.BoomLen: in ft  
+	5.BoomAngle: in degrees  
+	6.JibLen: in ft  
+	7.JibAngle: in degrees  
+	8.Radius: in ft  
 	9.Capacity: in lbs  
 If a column is not applicable it will contain a None type.

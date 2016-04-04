@@ -18,9 +18,10 @@ def capLookUp():
     #get values from workbook when crane is in any configuration besides luffing
     else:
         crane = xw.Range('Name').value
-        BoomType = xw.Range('Boom_Config').value
+        crane = crane.replace(" ", "") #removes all spaces
+        BoomType = str(xw.Range('Boom_Config').value)
         cwt = xw.Range('CWT').value
-        Outrigger = xw.Range('Outrigger').value
+        Outrigger = str(xw.Range('Outrigger').value)
         BoomLen = xw.Range('Main_Len').value
         BoomAngle = None
         JibLen = xw.Range('Jib_Len').value
@@ -30,9 +31,13 @@ def capLookUp():
     #query db for capacities
         conn = sqlite3.connect('E:\\WinPython-64bit-3.4.3.5\\notebooks\\CraneCapacityLookUp\\crane.db')
         c = conn.cursor()
-        c.execute("SELECT Capacity FROM %s WHERE BoomType == ? and Counterweight == ? and Outrigger == ? and BoomLen == ? and BoomAngle == ? or BoomAngle is NULL and JibLen == ? or JibLen is NULL and JibAngle == ? or JibAngle is NULL and Radius >= ?" %crane, dbin)
+        if xw.Range('Boom_Config').value == 'SF' or 'SA':  
+            c.execute("SELECT Capacity FROM {} WHERE BoomType == ?1 and Counterweight == ?2 and Outrigger == ?3 and BoomLen == ?4 and BoomAngle is Null and JibLen == ?6 and JibAngle == ?7 and Radius >= ?8".format(crane), dbin)
+        elif xw.Range('Boom_Config').value == 'SH':
+            c.execute("SELECT Capacity FROM {} WHERE BoomType == ?1 and Counterweight == ?2 and Outrigger == ?3 and BoomLen == ?4 and BoomAngle is Null and JibLen is Null and JibAngle is Null and Radius >= ?8".format(crane), dbin)
+        elif xw.Range('Boom_Config').value == 'SW':
+            c.execute("SELECT Capacity FROM {} WHERE BoomType == ?1 and Counterweight == ?2 and Outrigger == ?3 and BoomLen == ?4 and BoomAngle == ?5 and JibLen == ?6 and JibAngle is Null and Radius >= ?8".format(crane), dbin)
         Capacity = c.fetchone()
-        conn.close()
         return Capacity        
         
     #write capacities to excel sheet

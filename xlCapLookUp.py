@@ -31,7 +31,7 @@ def capLookUp():
     #query db for capacities
         conn = sqlite3.connect('E:\\WinPython-64bit-3.4.3.5\\notebooks\\CraneCapacityLookUp\\crane.db')
         c = conn.cursor()
-        if xw.Range('Boom_Config').value == 'SF' or 'SA':  
+        if xw.Range('Boom_Config').value == 'SF' or xw.Range('Boom_Config').value == 'SA':  
             c.execute("SELECT Capacity FROM {} WHERE BoomType == ?1 and Counterweight == ?2 and Outrigger == ?3 and BoomLen == ?4 and BoomAngle is Null and JibLen == ?6 and JibAngle == ?7 and Radius >= ?8".format(crane), dbin)
         elif xw.Range('Boom_Config').value == 'SH':
             c.execute("SELECT Capacity FROM {} WHERE BoomType == ?1 and Counterweight == ?2 and Outrigger == ?3 and BoomLen == ?4 and BoomAngle is Null and JibLen is Null and JibAngle is Null and Radius >= ?8".format(crane), dbin)
